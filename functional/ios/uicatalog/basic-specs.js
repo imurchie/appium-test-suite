@@ -2,7 +2,7 @@
 
 var env = require('../../../helpers/env')
   , setup = require("../../common/setup-base")
-  , status = require("../../../../lib/server/status")
+  , status = require("../../../lib/status")
   , desired = require('./desired');
 
 describe('uicatalog - basic @skip-ios6', function () {

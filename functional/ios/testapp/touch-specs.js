@@ -143,6 +143,16 @@ describe('testapp - swipe actions', function () {
         .nodeify(done);
     });
 
+    afterEach(function (done) {
+      driver
+        .chain()
+        .then(function () {
+          return slider;
+        })
+        .sendKeys('0.5')
+        .nodeify(done);
+    });
+
     // TODO: For some reason it does not swipe to 100% in ci env, investigate
     it('should work with: press {element}, moveTo {destEl} @skip-ci', function (done) {
       driver
@@ -157,9 +167,10 @@ describe('testapp - swipe actions', function () {
       driver
         // test: press {element, x, y}, moveTo {element, x, y}
         .performTouchAction((new TouchAction())
-          .press({el: slider, x: 0.8665, y: 0.5}).wait({ms: 500}).moveTo({el: slider, x: 0.5, y: 0.5}).release())
-        .then(getSliderValue)
-        .then(testSliderValueNot0or100)
+          .press({el: slider, x: 0, y: 0}).wait({ms: 500}).moveTo({el: destEl, x: 50, y: 0}).release())
+        // .then(getSliderValue)
+        // .then(testSliderValueNot0or100)
+        .then(getSliderValue).should.become("100%")
         .nodeify(done);
     });
 
@@ -167,8 +178,8 @@ describe('testapp - swipe actions', function () {
       driver
         // test: press {x, y}, moveTo {x, y}
         .performTouchAction((new TouchAction())
-          .press({x: centerPos.x, y: centerPos.y}).wait({ms: 500}).moveTo({x: -(centerPos.x-leftPos.x), y: 0}).release())
-        .then(getSliderValue).should.become("0%")
+          .press({x: centerPos.x, y: centerPos.y}).wait({ms: 500}).moveTo({x: leftPos.x, y: 0}).release())
+        .then(getSliderValue).should.become("100%")
         .nodeify(done);
     });
 
@@ -177,9 +188,10 @@ describe('testapp - swipe actions', function () {
       driver
         // test: press {element, x, y}, moveTo {destEl, x, y}
         .performTouchAction((new TouchAction())
-          .press({el: slider, x: 0, y: 0.5}).wait({ms: 500}).moveTo({el: destEl, x: -100, y: 0.5}).release())
-        .then(getSliderValue)
-        .then(testSliderValueNot0or100)
+          .press({el: slider, x: (centerPos.x-x), y: 0.5}).wait({ms: 500}).moveTo({el: destEl, x: 100, y: 0.5}).release())
+        // .then(getSliderValue)
+        // .then(testSliderValueNot0or100)
+        .then(getSliderValue).should.become("100%")
         .nodeify(done);
     });
 
