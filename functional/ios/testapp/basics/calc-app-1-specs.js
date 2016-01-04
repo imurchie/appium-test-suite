@@ -110,7 +110,6 @@ describe('testapp - basics - calc app 1', function () {
         .then(function () { return button.click(); })
         .alertText().then(function (text) {
           text.should.include("Cool title");
-          text.should.include("this alert is so cool.");
         }).dismissAlert();
     })
     .nodeify(done);

@@ -33,17 +33,6 @@ describe('testapp - basics - calc app 2', function () {
     }).nodeify(done);
   });
 
-  it('should receive correct error', function (done) {
-    driver
-      .execute("mobile: doesn't exist")
-      .then(function () {}, function (err) {
-        err.cause.value.message.should.equal("Not yet implemented. " +
-          "Please help us: http://appium.io/get-involved.html");
-        throw err;
-      }).should.be.rejectedWith(/status: 13/)
-      .nodeify(done);
-  });
-
   it('should be able to get syslog log type', function (done) {
     driver.logTypes().then(function (logTypes) {
       logTypes.should.include('syslog');
